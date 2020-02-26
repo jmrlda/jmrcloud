@@ -79,8 +79,10 @@ module.exports = {
     login: async ( req, res ) => {
 
         try {
-            var nome = req.params.nome;
-            var senha = req.params.senha;
+            // var nome = req.params.nome;
+            // var senha = req.params.senha;
+           var  {nome, senha} = req.body;
+            console.log("nome", nome, senha);
             Usuario.findOne({nome: nome},function( err, user ) {
                 if (user === null) {
                     return res.status(400).send({
