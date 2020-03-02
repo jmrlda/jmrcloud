@@ -9,13 +9,6 @@ module.exports = {
         var empresa_filial = id = req.params.id;
 
         try {
-            // const usuario = await Usuario.create({
-            //     nome,
-            //     email,
-            //     perfil,
-            //     documento,
-            //     empresa_filial
-            // });
             const usuario = new Usuario();
             usuario.nome = nome;
             usuario.email = email;
@@ -79,11 +72,8 @@ module.exports = {
     login: async ( req, res ) => {
 
         try {
-            // var nome = req.params.nome;
-            // var senha = req.params.senha;
            var  {nome, senha} = req.body;
-            console.log("nome", nome, senha);
-            Usuario.findOne({nome: nome},function( err, user ) {
+            Usuario.findOne({nome: nome}, async function( err, user ) {
                 if (user === null) {
                     return res.status(400).send({
                         erro: {mensagem: "usuario nao encontrado"},
@@ -91,9 +81,10 @@ module.exports = {
                     });
                 } else {
                     if ( user.validarSenha(senha)) {
+                       user = await user.populate('empresa_filial').execPopulate()
                         return res.status(201).send({
                             erro: null,
-                            resultado: user.populate('empresa_filial')
+                            resultado: user
                         });
                     } else {
                         return res.status(400).send({
@@ -103,9 +94,6 @@ module.exports = {
                     }
                 }
             });
-            // usuario.populate('empresa_filial').execPopulate();
-            
-            // return res.send({erro: null, resultado: usuario});                        
                 
         } catch (error) {
             return res.send({erro: error, resultado: null});                        
