@@ -4,23 +4,24 @@ const Filial = require('../modelo/empresa_filial');
 
 module.exports = {
     create: async ( req, res ) => {
-        const { nome, email, senha, perfil, documento } = req.body;
+        const { nome, senha, perfil, documento, usuario } = req.body;
         var id;
         var empresa_filial = id = req.params.id;
 
         try {
-            const usuario = new Usuario();
-            usuario.nome = nome;
-            usuario.email = email;
-            usuario.perfil = perfil;
-            usuario.documento = documento;
-            usuario.empresa_filial = empresa_filial;
+            const _usuario = new Usuario();
+            _usuario.usuario = usuario
+            _usuario.nome = nome;
+
+            _usuario.perfil = perfil;
+            _usuario.documento = documento;
+            _usuario.empresa_filial = empresa_filial;
 
    
-            usuario.setSenha(senha);
-            usuario.save();
+            _usuario.setSenha(senha);
+            _usuario.save();
             const filialById = await Filial.findById(id);
-            filialById.usuarios.push(usuario);
+            filialById.usuarios.push(_usuario);
             await filialById.save();
     
             return res.status(201).send({erro: null, resultado: filialById});
@@ -54,6 +55,20 @@ module.exports = {
         }
 
     },
+
+    findByUsuario: async ( req, res ) => {
+        try {
+            const { id } = req.params;        
+            const _usuario = await Usuario.find({usuario: id}).populate('empresa_filial');
+            return res.send({erro: null, resultado: _usuario});            
+                
+        } catch (error) {
+            return res.send({erro: error, resultado: null});                        
+        }
+
+    },
+    
+
     filialByUsuario: async ( req, res ) => {
 
         try {
@@ -98,7 +113,13 @@ module.exports = {
         } catch (error) {
             return res.send({erro: error, resultado: null});                        
         }
-    }
+    },
+
+
+    // registrarCliente: () => {
+
+    //     var _user = 
+    // }
 
 
 }
