@@ -2,8 +2,7 @@ const express        = require('express');
 const server         = express();
 const path            = require('path');
 
-server.get('/teste', ( req, res ) => {
-    res.sendFile(__dirname + path.normalize('/view/index.html'));
+server.get('/', ( req, res ) => {
+    res.render('paginas/index');
 });
-
 module.exports = server;
