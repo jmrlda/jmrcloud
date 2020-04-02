@@ -1,5 +1,6 @@
 <%- include('../../template/cabecalho'); -%>
 
+
 <!-- hieraquia das paginas -->
 <nav class="breadcrumb">
   <ul>
@@ -7,82 +8,416 @@
       <a href="/clientes">Clientes</a>
     </li>
     <li class="is-active">
-      <a href="/clientes/novo">Formulario</a>
+      <a href="/clientes/novo">Novo</a>
     </li>
   </ul>
 </nav>
 <!-- ./hieraquia das paginas -->
 
-<!-- formulario cliente pesquisa-->
-<form action="">
-  <div class="field">
-    <div class="field">
-      <label for="" class="label">Cliente</label>
-      <div class="control">
-        <input type="text" class="input " placeholder="terramar ..." required />
+<div class="columns">
+  <div class="column ">
+
+    <!-- formulario cliente pesquisa-->
+    <form  id="clienteForm">
+
+      <div class="columns is-desktop">
+        <!-- cliente  -->
+        <div class="column is-4">
+          <label for="" class="label">Cliente</label>
+          <div class="control has-icons-left">
+            <input type="text" class="input is-small" placeholder="Ex: jmrlda" name="clienteTxtCliente"
+              id="clienteTxtCliente" required />
+            <span class="icon is-small is-left">
+              <i class="fa fa-user-o"></i>
+            </span>
+          </div>
+        </div>
+        <!-- ./cliente -->
+        <!-- cliente  -->
+        <div class="column is-3 ">
+          <label for="" class="label">Codigo</label>
+          <div class="control has-icons-left">
+            <input type="text" class="input is-small" 
+              name="clienteTxtCodigo"
+              id="clienteTxtCodigo" disabled required />
+            <span class="icon is-small is-left">
+              <i class="fa fa-user-o"></i>
+            </span>
+          </div>
+        </div>
+        <!-- ./cliente -->
+
+
+
+      </div>
+
+      <!-- campo dos dados da empresa -->
+      <div class="columns is-desktop">
+
+
+        <!-- nome -->
+        <div class="column">
+          <label for="" class="label">Nome</label>
+          <div class="control has-icons-left">
+            <input type="text" class="input is-small" placeholder="Ex: jmrlda assessoria de gestao"
+              name="clienteTxtNome" id="clienteTxtNome" required />
+            <span class="icon is-small is-left">
+              <i class="fa fa-location-arrow"></i>
+            </span>
+          </div>
+        </div>
+        <!-- ./nome -->
+
+        <!-- nuit -->
+        <div class="column">
+          <label for="" class="label">Nuit</label>
+          <div class="control has-icons-left">
+            <input type="number" class="input is-small" placeholder="Ex: 34343535454" name="clienteTxtNuit"
+              id="clienteTxtNuit" required />
+            <span class="icon is-small is-left">
+              <i class="fa fa-user-circle-o"></i>
+            </span>
+          </div>
+        </div>
+        <!-- ./nuit -->
+
+        <!-- descricao 3 -->
+        <div class="column">
+          <label for="" class="label">Descricao</label>
+          <div class="control has-icons-left">
+            <input type="text" class="input is-small" placeholder="Ex: assistencia tecnica" name="clienteTxtDescricao"
+              id="clienteTxtDescricao" required />
+            <span class="icon is-small is-left">
+              <i class="fa fa-user-circle-o"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <!-- botao submit e cancelar -->
+      <nav class="level">
+        <div class="level-left">
+        </div>
+        <div class="level-right">
+          <div class="level-item">
+            <div class="field ">
+              <div class="buttons">
+                <button class="button  is-success is-small" id="clienteBtnCriar">Criar cliente</button>
+                <button class="button  is-light is-small" id="clienteBtnCancelar">Cancelar</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </nav>
+      <!-- botao submit e cancelar -->
+
+      <!-- ./campo dos atributos -->
+    </form>
+
+    <form action="" id="clienteFilialForm">
+
+      <h5 class="title is-5">Filial</h5>
+
+
+
+      <div class="columns is-desktop">
+        <!-- nome filial  -->
+        <div class="column is-5">
+          <label for="" class="label">Nome</label>
+          <div class="control has-icons-left">
+            <input type="text" class="input is-small" placeholder="Ex: Bagamoyo" name="clienteFilialTxtNome"
+              id="clienteFilialTxtNome" required />
+            <span class="icon is-small is-left">
+              <i class="fa fa-user-o"></i>
+            </span>
+          </div>
+        </div>
+        <!-- ./nome filial -->
+      </div>
+
+      <!--  endereco da empresa -->
+      <h6 class="title is-6">Endereco</h6>
+
+      <div class="columns is-desktop">
+
+
+        <!-- cidade -->
+        <div class="column">
+
+          <label for="" class="label">Cidade</label>
+          <div class="control has-icons-left">
+            <input type="text" class="input is-small" placeholder="Ex: Maputo" name="clienteFilialTxtCidade"
+              id="clienteFilialTxtCidade" required />
+            <span class="icon is-small is-left">
+              <i class="fa fa-location-arrow"></i>
+            </span>
+          </div>
+        </div>
+        <!-- ./cidade -->
+
+        <!-- localidade -->
+        <div class="column">
+          <label for="" class="label">Localidade</label>
+          <div class="control has-icons-left">
+            <input type="text" class="input is-small" placeholder="Ex: Bagamoyo" name="clienteFilialTxtLocalidade"
+              id="clienteFilialTxtLocalidade" required />
+            <span class="icon is-small is-left">
+              <i class="fa fa-location-arrow"></i>
+            </span>
+          </div>
+        </div>
+        <!-- ./localidade -->
+
+        <!-- descricao 3 -->
+        <div class="column">
+          <label for="" class="label">Rua/Av</label>
+          <div class="control has-icons-left">
+            <input type="text" class="input is-small" placeholder="Ex: Av. Karl Marx" name="clienteFilialTxtAvRua"
+              id="clienteFilialTxtLocalidadeAvRua" required />
+            <span class="icon is-small is-left">
+              <i class="fa fa-location-arrow"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- ./ endereco da empresa -->
+
+      <h6 class="title is-6">Contacto</h6>
+
+      <!--  contacto da empresa -->
+      <div class="columns is-desktop">
+        <!-- Telefone -->
+        <div class="column">
+          <label for="" class="label">Telefone</label>
+          <div class="control has-icons-left">
+            <input type="text" class="input is-small" placeholder="Ex: 864856558" name="clienteFilialTxtTelefone"
+              id="clienteFilialTxtTelefone" required />
+            <span class="icon is-small is-left">
+              <i class="fa fa-phone"></i>
+            </span>
+          </div>
+        </div>
+        <!-- ./Telefone -->
+
+        <!-- Email -->
+        <div class="column">
+          <label for="" class="label">Email</label>
+          <div class="control has-icons-left">
+            <input type="text" class="input is-small" placeholder="Ex: nome@provedor.com" name="clienteFilialTxtEmail"
+              id="clienteFilialTxtEmail" required />
+            <span class="icon is-small is-left">
+              <i class="fa fa-email"></i>
+            </span>
+          </div>
+        </div>
+        <!-- ./Email -->
+
+        <!-- enderereco ip -->
+        <div class="column">
+          <label for="" class="label">IP</label>
+          <div class="control has-icons-left">
+            <input type="text" class="input is-small" placeholder="Ex: 127.0.0.1" name="clienteFilialTxtIp"
+              id="clienteFilialTxtIp" required />
+            <span class="icon is-small is-left">
+              <i class="fa fa-ip"></i>
+            </span>
+          </div>
+        </div>
+        <!--./enderereco ip -->
+
+      </div>
+      <!-- ./ contacto da empresa -->
+
+
+      <!-- botao submit e cancelar -->
+      <nav class="level">
+        <div class="level-left">
+        </div>
+        <div class="level-right">
+          <div class="level-item">
+            <div class="field ">
+              <div class="buttons">
+                <button class="button  is-success is-small">Salvar filial</button>
+                <button class="button  is-light is-small">Cancelar</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </nav>
+      <!-- botao submit e cancelar -->
+
+    </form>
+    <!-- ./formulario cliente pesquisa -->
+    <div class="columns">
+      <div class="column">
+        <!-- tabela filiais -->
+        <table class="table is-hoverable is-fullwidth" id="clienteFilialTabela">
+          <thead>
+            <tr>
+              <th class="is-narrow">
+                <input type="checkbox">
+              </th>
+              <th>Nome</th>
+              <th>ip</th>
+              <th>email</th>
+              <th>telefone</th>
+              <th>accao</th>
+            </tr>
+          </thead>
+
+          <tfoot>
+            <tr>
+              <th class="is-narrow">
+                <!-- <input type="checkbox"> -->
+              </th>
+              <th></th>
+              <th></th>
+              <th>
+                <div class="buttons">
+                  <a href="#" class="button is-small" id="clienteBtnCriarFilial">Criar filial</a>
+                </div>
+              </th>
+              <th></th>
+              <th>
+
+              </th>
+            </tr>
+          </tfoot>
+
+          <tbody>
+
+          </tbody>
+
+        </table>
+        <!-- ./tabela filiais -->
       </div>
     </div>
-  </div>
-</form>
-<!-- ./formulario cliente pesquisa -->
-<!-- campo dos atributos -->
-<div class="columns is-desktop">
-  <!-- campo 1 -->
-  <div class="column">
-    <label for="" class="label">Endereco</label>
-    <div class="control has-icons-left">
-      <input
-        type="text"
-        class="input"
-        placeholder="Ex: Rua dos irmaos Roby"
-        required
-      />
-      <span class="icon is-small is-left">
-        <i class="fa fa-location-arrow"></i>
-      </span>
-    </div>
-  </div>
-  <!-- ./campo1 -->
 
-  <!-- campo 2 -->
-  <div class="column">
-    <label for="" class="label">Servicos</label>
-    <div class="control has-icons-left">
-      <input
-        type="text"
-        class="input"
-        placeholder="Ex: Conferencia de caixa"
-        required
-      />
-      <span class="icon is-small is-left">
-        <i class="fa fa-"></i>
-      </span>
-    </div>
   </div>
-  <!-- ./campo2 -->
 
-  <!-- campo 3 -->
-  <div class="column">
-    <label for="" class="label">admin</label>
-    <div class="control has-icons-left">
-      <input type="number" class="input" placeholder="Ex: Casquinho" required />
-      <span class="icon is-small is-left">
-        <i class="fa fa-user-circle-o"></i>
-      </span>
-    </div>
-  </div>
-</div>
-<!-- ./campo3 -->
-<!-- botao submit e cancelar -->
-<div class="field">
-  <div class="buttons">
-    <button class="button is-medium is-success">Criar cliente</button>
-    <button class="button is-medium is-light">Cancelar</button>
+
+
+  <div class="column is-2">
+    <h3>informacao adicionais da empresa</h3>
   </div>
 </div>
 
-<!-- botao submit e cancelar -->
 
-<!-- ./campo dos atributos -->
+
+<script>
+  $(document).ready(function () {
+
+    // Esconder componentes ate sua exibicao pelo usuario
+    $("#clienteFilialForm").hide();
+    $("#clienteFilialTabela").hide();
+
+    var cliente, nome, nuit, descricao;
+
+
+    // Eventos
+    $("#clienteForm").on('submit', function(event) {
+      cliente = $('#clienteTxtCliente').val();
+      nome = $('#clienteTxtNome').val();
+      nuit = $('#clienteTxtNuit').val();
+      descricao = $('#clienteTxtDescricao').val();
+
+
+      // enviar dados do formulario
+      $.post('http://127.0.0.1:4000/empresas',
+      {
+        'empresa': cliente,
+        'nome': nome,
+        'nuit': nuit,
+        'descricao': descricao
+      } ,
+      function( data, status) {
+        if (data.erro !== null) {
+          alert('ocorreu um erro')
+        } else {
+          alert('sucesso');
+          var cliente = data.resultado;
+          limpar_clienteForm();
+           preecher_clienteForm(cliente._id, cliente.empresa,
+            cliente.nome, cliente.nuit, cliente.descricao);
+            $("#clienteFilialTabela").show();
+
+        }
+      });
+
+      return false;
+
+    });
+
+    // exibir tabela das filiais depois de criar empresa
+    // $("#clienteBtnCriar").on('click', function (event) {
+    //   event.preventDefault();
+    //   $("#clienteFilialTabela").show();
+
+    // });
+
+    // esconder tabela das filiais depois de criar empresa
+    $("#clienteBtnCancelar").on('click', function (event) {
+
+      event.preventDefault();
+  
+
+      $("#clienteFilialTabela").hide();
+    });
+
+    // exibir formulario para criacao ou edicao de uma filial
+    $("#clienteBtnCriarFilial").on('click', function (event) {
+
+      event.preventDefault();
+      $("#clienteFilialForm").toggle();
+    });
+
+  });
+
+
+  // ./Eventos
+
+
+  /* metodos */
+
+  /***
+   *  limpar os campos do formulario cliente
+   *  Argumento: none
+   *  Return: none
+   */
+  function limpar_clienteForm() {
+    
+    $('#clienteTxtCodigo').val("");
+    $('#clienteTxtCliente').val("");
+      $('#clienteTxtNome').val("");
+       $('#clienteTxtNuit').val("");
+     $('#clienteTxtDescricao').val("");
+  }
+
+
+  
+  /***
+   *   Preencher os campos do formulario cliente com 
+   *      valores passado por parametro
+   *  Parametro: codigo, cliente, nome, nuit, descricao 
+   *  Return: none
+   */
+   function preecher_clienteForm(codigo, cliente, nome, nuit, descricao) {
+    
+    $('#clienteTxtCodigo').val(codigo);
+    $('#clienteTxtCliente').val(cliente);
+      $('#clienteTxtNome').val(nome);
+       $('#clienteTxtNuit').val(nuit);
+     $('#clienteTxtDescricao').val(descricao);
+  }
+  /* ./metodos */
+
+
+
+</script>
 
 <%- include('../../template/rodape'); -%>

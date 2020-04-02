@@ -2,6 +2,10 @@ var mongoose = require('mongoose');
 
 
 var EmpresaSchema = new mongoose.Schema({
+    empresa : {
+        type: String,
+        required: true
+    },
     nome : {
         type: String,
         required: true

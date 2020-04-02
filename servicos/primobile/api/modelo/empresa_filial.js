@@ -12,6 +12,37 @@ const FilialSchema = new mongoose.Schema({
     ip: {
         type: String
     },
+
+    rua_av: {
+        type: String
+    },
+    
+    localidade: {
+        type: String
+    },
+
+    cidade: {
+        type: String
+    },
+
+    pais: {
+        type: String
+    },
+
+    telefone: {
+        type: Number
+    },
+
+    email: {
+        type: String
+    },
+
+    web: {
+        type: String
+    },
+
+
+
     usuarios: [
         { 
             type: mongoose.Schema.Types.ObjectId, 

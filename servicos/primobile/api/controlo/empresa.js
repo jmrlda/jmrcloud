@@ -5,13 +5,15 @@ module.exports = {
     create: async ( req, res ) => {
       try {
         console.log('dentro create empresa');
-        const { nome, descricao } = req.body;
+        const { empresa, nome, descricao, nuit } = req.body;
         console.log(req.body)
-        const empresa = await Empresa.create({
+        const _empresa = await Empresa.create({
+          empresa,
             nome,
-            descricao
+            descricao,
+            nuit
         });
-        return res.send({erro: null, resultado: empresa});                        
+        return res.send({erro: null, resultado: _empresa});                        
           
       } catch (error) {
         return res.send({erro: error, resultado: null});                        
