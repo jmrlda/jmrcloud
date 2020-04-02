@@ -1,0 +1,210 @@
+<%- include('../../template/cabecalho'); -%>
+
+
+     <!-- coluna conteudo -->
+     <div class="column">
+      <h2 class="title">Clientes</h2>
+
+      <!-- navegacao cliente -->
+      <nav class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <p class="subtitle is-5">
+              <strong>6</strong> clientes
+            </p>
+          </div>
+
+          <p class="level-item">
+            <a href="/clientes/novo" class="button is-success">novo</a>
+          </p>
+
+          <div class="level-item is-hidden-tablet-only">
+            <div class="field has-addons">
+              <p class="control">
+                <input type="text" name="" id="" class="input" placeholder="Cliente ...">
+              </p>
+
+              <p class="control">
+                <button class="button">Procurar</button>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- level-right -->
+        <div class="level-right">
+          <level class="item">
+            Ordenar por
+          </level>
+
+          <div class="level-item">
+            <div class="select">
+              <select name="" id="">
+                <option value="">Nome</option>
+                <option value="">Data registo</option>
+                <option value="">Servicos</option>
+
+
+              </select>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <!-- ./navegacao cliente -->
+
+                <!-- tabela cliente -->
+                <table class="table is-hoverable is-fullwidth">
+                  <thead>
+                    <tr>
+                      <th class="is-narrow">
+                        <input type="checkbox" >
+                      </th>
+                      <th>Nome</th>
+                      <th>Email</th>
+                      <th>Provincia</th>
+                      <th>Servicos</th>
+                      <th>accao</th>
+                    </tr>
+                  </thead>
+      
+                  <tfoot>
+                    <tr>
+                      <th class="is-narrow">
+                        <input type="checkbox">
+                      </th>
+                      <th>Nome</th>
+                      <th>Email</th>
+                      <th>Provincia</th>
+                      <th>Servicos</th>
+                      <th>accao</th>
+                    </tr>
+                  </tfoot>
+      
+                  <tbody>
+                    <tr>
+                      <td>
+                        <input type="checkbox" >
+                      </td>
+                      <td>
+                        <a href="/clientes/novo">
+                          <strong>terramar</strong>
+                        </a>
+                      </td>
+                      <td><code>suporte@terramar.com</code></td>
+                      <td>Maputo</td>
+                      <td>
+                        <a href="/clientes/novo"> 2 </a>
+                      </td>
+      
+                      <td>
+                        <div class="buttons">
+                          <a href="/clientes/novo" class="button is-small">Editar</a>
+                          <a href="#" class="button is-small">Apagar</a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input type="checkbox" >
+                      </td>
+                      <td>
+                        <a href="/clientes/novo">
+                          <strong>Blue</strong>
+                        </a>
+                      </td>
+                      <td><code>ajuda@blue.com</code></td>
+                      <td>Nacala</td>
+                      <td>
+                        <a href="/clientes/novo"> 1 </a>
+                      </td>
+      
+                      <td>
+                        <div class="buttons">
+                          <a href="/clientes/novo" class="button is-small">Editar</a>
+                          <a href="#" class="button is-small">Apagar</a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input type="checkbox">
+                      </td>
+                      <td>
+                        <a href="/clientes/novo">
+                          <strong>Meialua</strong>
+                        </a>
+                      </td>
+                      <td><code>suporte@meialua.com</code></td>
+                      <td>Maputo</td>
+                      <td>
+                        <a href="/clientes/novo"> 5 </a>
+                      </td>
+      
+                      <td>
+                        <div class="buttons">
+                          <a href="/clientes/novo" class="button is-small">Editar</a>
+                          <a href="#" class="button is-small">Apagar</a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input type="checkbox" >
+                      </td>
+                      <td>
+                        <a href="/clientes/novo">
+                          <strong>Tecfing</strong>
+                        </a>
+                      </td>
+                      <td><code>suporte@Tecfing.com</code></td>
+                      <td>Maputo</td>
+                      <td>
+                        <a href="/clientes/novo"> 3 </a>
+                      </td>
+      
+                      <td>
+                        <div class="buttons">
+                          <a href="/clientes/novo" class="button is-small">Editar</a>
+                          <a href="#" class="button is-small">Apagar</a>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+      
+                </table>
+                <!-- ./tabela cliente -->
+      
+      
+      
+                <!-- paginacao -->
+                <nav class="pagination">
+                  <a href="#" class="pagination-previous">Anterior</a>
+                  <a href="#" class="pagination-next">Proximo</a>
+                  <ul class="pagination-list">
+                    <li>
+                      <a href="#" class="pagination-link">1</a>
+                    </li>
+                    <li>
+                      <a href="#" class="pagination-ellipsis">&hellip;</a>
+                    </li>
+                    <li>
+                      <a href="#" class="pagination-link">45</a>
+                    </li>
+                    <li>
+                      <a href="#" class="pagination-link is-current">46</a>
+                    </li>
+                    <li>
+                      <a href="#" class="pagination-link">47</a>
+                    </li>
+                    <li>
+                      <a href="#" class="pagination-ellipsis">&hellip;</a>
+                    </li>
+                    <li>
+                      <a href="#" class="pagination-link">81</a>
+                    </li>
+      
+                  </ul>
+                </nav>
+                <!-- ./paginacao -->
+
+<%- include('../../template/rodape'); -%>

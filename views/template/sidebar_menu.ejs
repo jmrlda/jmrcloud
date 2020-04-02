@@ -7,7 +7,12 @@
           <ul class="menu-list">
             <!-- Dashboard -->
             <li>
-              <a href="dashboard.html">
+
+              <% if (isActive == "dashboard") { %>
+                <a class="is-active" href="/">
+                <% } else { %>  
+                  <a  href="/">       
+                <% } %>
                 <span class="icon">
                   <i class="fa fa-tachometer"></i>
                 </span>
@@ -16,7 +21,12 @@
             </li>
          <!-- servicos -->
          <li>
-          <a  href="servicos.html">
+          <% if (isActive == "servicos") { %>
+          <a class="is-active" href="/servicos">
+          <% } else { %>  
+            <a  href="/servicos">
+            <% } %>
+
             <span class="icon">
               <i class="fa fa-handshake-o"></i>
             </span>
@@ -27,17 +37,28 @@
 
             <!-- Aplicacoes -->
             <li>
-              <a  href="aplicacao.html.html">
-                <span class="icon">
-                  <i class="fa fa-cube"></i>
-                </span>
-                Aplicacoes
-              </a>
-            </li>
+              <% if (isActive == "aplicacao") { %>
+                <a  class="is-active"  href="/aplicacao">      
+                <% } else { %>  
+                  <a  href="/aplicacao">
+                  <% } %>
+                  <span class="icon">
+                    <i class="fa fa-cube"></i>
+                  </span>
+                  Aplicacoes
+                </a>  
+              </li>                  
+
 
             <!-- clientes -->
+
+
             <li>
-              <a  href="clientes.html">
+              <% if (isActive == "clientes") { %>
+                <a   class="is-active" href="/clientes">
+                <% } else { %>  
+                  <a  href="/clientes">
+                  <% } %>              
                 <span class="icon">
                   <i class="fa fa-user"></i>
                 </span>

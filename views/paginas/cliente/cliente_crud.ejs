@@ -1,0 +1,88 @@
+<%- include('../../template/cabecalho'); -%>
+
+<!-- hieraquia das paginas -->
+<nav class="breadcrumb">
+  <ul>
+    <li>
+      <a href="/clientes">Clientes</a>
+    </li>
+    <li class="is-active">
+      <a href="/clientes/novo">Formulario</a>
+    </li>
+  </ul>
+</nav>
+<!-- ./hieraquia das paginas -->
+
+<!-- formulario cliente pesquisa-->
+<form action="">
+  <div class="field">
+    <div class="field">
+      <label for="" class="label">Cliente</label>
+      <div class="control">
+        <input type="text" class="input " placeholder="terramar ..." required />
+      </div>
+    </div>
+  </div>
+</form>
+<!-- ./formulario cliente pesquisa -->
+<!-- campo dos atributos -->
+<div class="columns is-desktop">
+  <!-- campo 1 -->
+  <div class="column">
+    <label for="" class="label">Endereco</label>
+    <div class="control has-icons-left">
+      <input
+        type="text"
+        class="input"
+        placeholder="Ex: Rua dos irmaos Roby"
+        required
+      />
+      <span class="icon is-small is-left">
+        <i class="fa fa-location-arrow"></i>
+      </span>
+    </div>
+  </div>
+  <!-- ./campo1 -->
+
+  <!-- campo 2 -->
+  <div class="column">
+    <label for="" class="label">Servicos</label>
+    <div class="control has-icons-left">
+      <input
+        type="text"
+        class="input"
+        placeholder="Ex: Conferencia de caixa"
+        required
+      />
+      <span class="icon is-small is-left">
+        <i class="fa fa-"></i>
+      </span>
+    </div>
+  </div>
+  <!-- ./campo2 -->
+
+  <!-- campo 3 -->
+  <div class="column">
+    <label for="" class="label">admin</label>
+    <div class="control has-icons-left">
+      <input type="number" class="input" placeholder="Ex: Casquinho" required />
+      <span class="icon is-small is-left">
+        <i class="fa fa-user-circle-o"></i>
+      </span>
+    </div>
+  </div>
+</div>
+<!-- ./campo3 -->
+<!-- botao submit e cancelar -->
+<div class="field">
+  <div class="buttons">
+    <button class="button is-medium is-success">Criar cliente</button>
+    <button class="button is-medium is-light">Cancelar</button>
+  </div>
+</div>
+
+<!-- botao submit e cancelar -->
+
+<!-- ./campo dos atributos -->
+
+<%- include('../../template/rodape'); -%>
