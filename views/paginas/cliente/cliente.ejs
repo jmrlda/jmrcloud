@@ -113,17 +113,11 @@
     $(document).ready(function () {
 
       /* eventos */
-      $.get('http://127.0.0.1:4000/empresas/', function (data, status) {
-        if (data.erro !== null) {
-          alert('ocorreu um erro ' + data.erro)
-        } else {
-          data.resultado.forEach(cliente => {
-            adicionar_linha_tabela(cliente._id, cliente.empresa, cliente.nome, cliente.descricao, cliente.nuit);
-            
-          });;
-          
-        }
-      });
+      get_empresa_para_tabela();
+
+
+
+         
       /* ./eventos */
 
 
@@ -134,15 +128,16 @@
         $btnContainer = $('<div/>');
         $btnContainer.addClass('buttons');
         $btnEditar = $('<a/>');
-        $btnEditar.attr('href','/clientes/novo');
+        $btnEditar.attr('href','/clientes/'+ codigo);
         
         $btnEditar.addClass('button is-small');
         $btnEditar.text('editar');
 
         $btnRemover = $('<a/>');
         $btnRemover.attr('href','#');
-        $btnRemover.addClass('button is-small is-danger');
+        $btnRemover.addClass('button is-small is-danger empresa-remover');
         $btnRemover.text('Remover')
+        $btnRemover.attr('data-id', codigo);
 
         $btnContainer.append($btnEditar);
         $btnContainer.append($btnRemover);
@@ -162,6 +157,38 @@
         $linha.append($btnContainer);
 
         $('#clienteTabelaBody').append($linha);
+      }
+
+      function limpar_tabela_cliente() {
+        $('#clienteTabelaBody').html('');
+      }
+
+
+
+      function get_empresa_para_tabela() {
+        $.get('http://127.0.0.1:4000/empresas/', function (data, status) {
+        if (data.erro !== null) {
+          alert('ocorreu um erro ' + data.erro)
+        } else {
+          data.resultado.forEach(cliente => {
+            adicionar_linha_tabela(cliente._id, cliente.empresa, cliente.nome, cliente.descricao, cliente.nuit);
+            
+          });;
+                 // remover filial selecionado na linha da tabela
+                 $('.empresa-remover').on('click', function (event) {
+            event.preventDefault();
+            var id = $(this).data().id;
+            cliente = $('#clienteTxtCodigo').val();
+            // limpar_tabela_cliente_filial();
+            limpar_tabela_cliente();
+            $.get("/empresas/delete/" + id, function (data, status) {
+              // get_filial_para_tabela(cliente);
+              get_empresa_para_tabela();
+            });
+
+          });
+        }
+      });
       }
       /* ./metodos */
 

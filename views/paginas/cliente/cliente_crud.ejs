@@ -8,7 +8,12 @@
       <a href="/clientes">Clientes</a>
     </li>
     <li class="is-active">
+      <% if (cliente) { %>
+      <a href="/clientes/novo">Editar</a>
+      <% } else { %>
       <a href="/clientes/novo">Novo</a>
+      <% } %>
+
     </li>
   </ul>
 </nav>
@@ -18,15 +23,15 @@
   <div class="column ">
 
     <!-- formulario cliente pesquisa-->
-    <form  id="clienteForm">
+    <form id="clienteForm">
 
       <div class="columns is-desktop">
         <!-- cliente  -->
         <div class="column is-4">
           <label for="" class="label">Cliente</label>
           <div class="control has-icons-left">
-            <input type="text" class="input is-small" placeholder="Ex: jmrlda" name="clienteTxtCliente"
-              id="clienteTxtCliente" required />
+            <input type="text" class="input is-small" <% if (cliente) { %> value="<%= cliente.empresa %>" <% } %>
+              name="clienteTxtCliente" id="clienteTxtCliente" required />
             <span class="icon is-small is-left">
               <i class="fa fa-user-o"></i>
             </span>
@@ -37,9 +42,8 @@
         <div class="column is-3 ">
           <label for="" class="label">Codigo</label>
           <div class="control has-icons-left">
-            <input type="text" class="input is-small" 
-              name="clienteTxtCodigo"
-              id="clienteTxtCodigo" disabled required />
+            <input type="text" class="input is-small" <% if (cliente) { %> value="<%= cliente._id %>" <% } %>
+              name="clienteTxtCodigo" id="clienteTxtCodigo" disabled required />
             <span class="icon is-small is-left">
               <i class="fa fa-user-o"></i>
             </span>
@@ -59,8 +63,8 @@
         <div class="column">
           <label for="" class="label">Nome</label>
           <div class="control has-icons-left">
-            <input type="text" class="input is-small" placeholder="Ex: jmrlda assessoria de gestao"
-              name="clienteTxtNome" id="clienteTxtNome" required />
+            <input type="text" class="input is-small" placeholder="Ex: jmrlda assessoria de gestao" <% if (cliente) { %>
+              value="<%= cliente.nome %>" <% } %> name="clienteTxtNome" id="clienteTxtNome" required />
             <span class="icon is-small is-left">
               <i class="fa fa-location-arrow"></i>
             </span>
@@ -73,7 +77,7 @@
           <label for="" class="label">Nuit</label>
           <div class="control has-icons-left">
             <input type="number" class="input is-small" placeholder="Ex: 34343535454" name="clienteTxtNuit"
-              id="clienteTxtNuit" required />
+              <% if (cliente) { %> value="<%= cliente.nuit %>" <% } %> id="clienteTxtNuit" required />
             <span class="icon is-small is-left">
               <i class="fa fa-user-circle-o"></i>
             </span>
@@ -86,7 +90,7 @@
           <label for="" class="label">Descricao</label>
           <div class="control has-icons-left">
             <input type="text" class="input is-small" placeholder="Ex: assistencia tecnica" name="clienteTxtDescricao"
-              id="clienteTxtDescricao" required />
+              <% if (cliente) { %> value="<%= cliente.descricao %>" <% } %> id="clienteTxtDescricao" required />
             <span class="icon is-small is-left">
               <i class="fa fa-user-circle-o"></i>
             </span>
@@ -105,7 +109,8 @@
           <div class="level-item">
             <div class="field ">
               <div class="buttons">
-                <button class="button  is-success is-small" id="clienteBtnCriar">Criar cliente</button>
+                <button class="button  is-success is-small" id="clienteBtnCriar"> <% if (btnCreateLabel) { %>
+                  <%= btnCreateLabel %> <% } %></button>
                 <button class="button  is-light is-small" id="clienteBtnCancelar">Cancelar</button>
               </div>
             </div>
@@ -241,8 +246,8 @@
           <div class="level-item">
             <div class="field ">
               <div class="buttons">
-                <button class="button  is-success is-small">Salvar filial</button>
-                <button class="button  is-light is-small">Cancelar</button>
+                <button class="button  is-success is-small" id="clienteFilialBtnCriar">Salvar filial</button>
+                <button class="button  is-light is-small" id="clienteFilialBtnCancelar">Cancelar</button>
               </div>
             </div>
 
@@ -259,9 +264,6 @@
         <table class="table is-hoverable is-fullwidth" id="clienteFilialTabela">
           <thead>
             <tr>
-              <th class="is-narrow">
-                <input type="checkbox">
-              </th>
               <th>Nome</th>
               <th>ip</th>
               <th>email</th>
@@ -270,7 +272,7 @@
             </tr>
           </thead>
 
-          <tfoot>
+          <tfoot id="clienteFilialTabelaFoot">
             <tr>
               <th class="is-narrow">
                 <!-- <input type="checkbox"> -->
@@ -278,18 +280,17 @@
               <th></th>
               <th></th>
               <th>
+
+              </th>
+              <th>
                 <div class="buttons">
                   <a href="#" class="button is-small" id="clienteBtnCriarFilial">Criar filial</a>
                 </div>
               </th>
-              <th></th>
-              <th>
-
-              </th>
             </tr>
           </tfoot>
 
-          <tbody>
+          <tbody id="clienteFilialTabelaBody">
 
           </tbody>
 
@@ -310,61 +311,125 @@
 
 
 <script>
+  var lista_filial = [];
+
   $(document).ready(function () {
+    var id, cliente, nome, nuit, descricao, url,
+      filialNome, cidade, localidade, rua_av, telefone, email, ip;
+
+
+
+
+
 
     // Esconder componentes ate sua exibicao pelo usuario
-    $("#clienteFilialForm").hide();
-    $("#clienteFilialTabela").hide();
+    id = $('#clienteTxtCodigo').val();
 
-    var cliente, nome, nuit, descricao;
+    if (id.length > 1) {
+      $("#clienteFilialTabela").show();
+    } else {
+      $("#clienteFilialTabela").hide();
+
+    }
+    $("#clienteFilialForm").hide();
+
 
 
     // Eventos
-    $("#clienteForm").on('submit', function(event) {
+
+    get_filial_para_tabela(id);
+    // formulario cliente
+    $("#clienteForm").on('submit', function (event) {
+
+      id = $('#clienteTxtCodigo').val();
       cliente = $('#clienteTxtCliente').val();
       nome = $('#clienteTxtNome').val();
       nuit = $('#clienteTxtNuit').val();
       descricao = $('#clienteTxtDescricao').val();
 
-
+      if ( id.length > 1) {
+        url = 'http://127.0.0.1:4000/empresas/' + id;
+      } else {
+        url = 'http://127.0.0.1:4000/empresas'; 
+      }
       // enviar dados do formulario
-      $.post('http://127.0.0.1:4000/empresas',
-      {
-        'empresa': cliente,
-        'nome': nome,
-        'nuit': nuit,
-        'descricao': descricao
-      } ,
-      function( data, status) {
-        if (data.erro !== null) {
-          alert('ocorreu um erro')
-        } else {
-          alert('sucesso');
-          var cliente = data.resultado;
-          limpar_clienteForm();
-           preecher_clienteForm(cliente._id, cliente.empresa,
-            cliente.nome, cliente.nuit, cliente.descricao);
+      $.post(url, {
+          'empresa': cliente,
+          'nome': nome,
+          'nuit': nuit,
+          'descricao': descricao
+        },
+        function (data, status) {
+          if (data.erro !== null) {
+            console.log(data);
+          } else {
+            cliente = data.resultado;
+            limpar_clienteForm();
+            preecher_clienteForm(cliente._id, cliente.empresa,
+              cliente.nome, cliente.nuit, cliente.descricao);
             $("#clienteFilialTabela").show();
 
-        }
-      });
+          }
+        });
 
       return false;
 
     });
 
-    // exibir tabela das filiais depois de criar empresa
-    // $("#clienteBtnCriar").on('click', function (event) {
-    //   event.preventDefault();
-    //   $("#clienteFilialTabela").show();
+    // ./formulario cliente
 
-    // });
 
+    // formulario clienteFilial
+    $("#clienteFilialBtnCriar").on('click', function (event) {
+      event.preventDefault();
+
+      cliente = $('#clienteTxtCodigo').val();
+      filialNome = $('#clienteFilialTxtNome').val();
+      cidade = $('#clienteFilialTxtCidade').val();
+      localidade = $('#clienteFilialTxtLocalidade').val();
+      rua_av = $('#clienteFilialTxtLocalidadeAvRua').val();
+      telefone = $('#clienteFilialTxtTelefone').val();
+      email = $('#clienteFilialTxtEmail').val();
+      ip = $('#clienteFilialTxtIp').val();
+
+
+      // enviar dados do formulario
+      $.post('http://127.0.0.1:4000/filial/' + cliente, {
+          'empresa': cliente,
+          'nome': filialNome,
+          'ip': ip,
+          'rua_av': rua_av,
+          'localidade': localidade,
+          'cidade': cidade,
+          'telefone': telefone,
+          'email': email
+        },
+        function (data, status) {
+    
+          if (data.erro !== null) {
+            alert('ocorreu um erro')
+          } else {
+            var filial = data.resultado;
+
+            limpar_clienteFilialForm();
+            $("#clienteFilialForm").hide();
+            limpar_tabela_cliente_filial();
+            get_filial_para_tabela(cliente);
+            // adicionar_linha_tabela_filial(filial.nome, filial.ip, filial.email, filial.telefone);
+            // // filial.rua_av, filial.telefone, filial.email, filial.ip); 
+          }
+        });
+
+      return false;
+
+    });
+
+    // ./formulario clienteFilial
     // esconder tabela das filiais depois de criar empresa
     $("#clienteBtnCancelar").on('click', function (event) {
 
       event.preventDefault();
-  
+
 
       $("#clienteFilialTabela").hide();
     });
@@ -376,7 +441,18 @@
       $("#clienteFilialForm").toggle();
     });
 
+
+    // cancelar o registo de filial e esconder o formulario
+    $("#clienteFilialBtnCancelar").on('click', function (event) {
+
+      event.preventDefault();
+
+      $("#clienteFilialForm").hide();
+    });
   });
+
+
+
 
 
   // ./Eventos
@@ -390,34 +466,183 @@
    *  Return: none
    */
   function limpar_clienteForm() {
-    
+
     $('#clienteTxtCodigo').val("");
     $('#clienteTxtCliente').val("");
-      $('#clienteTxtNome').val("");
-       $('#clienteTxtNuit').val("");
-     $('#clienteTxtDescricao').val("");
+    $('#clienteTxtNome').val("");
+    $('#clienteTxtNuit').val("");
+    $('#clienteTxtDescricao').val("");
+  }
+
+  /***
+   *  limpar os campos do formulario clienteFilial
+   *  Argumento: none
+   *  Return: none
+   */
+  function limpar_clienteFilialForm() {
+
+    $('#clienteFilialTxtNome').val("");
+    $('#clienteFilialTxtCidade').val("");
+    $('#clienteFilialTxtLocalidade').val("");
+    $('#clienteFilialTxtLocalidadeAvRua').val("");
+    $('#clienteFilialTxtTelefone').val("");
+    $('#clienteFilialTxtEmail').val("");
+    $('#clienteFilialTxtIp').val("");
+
+
   }
 
 
-  
   /***
    *   Preencher os campos do formulario cliente com 
    *      valores passado por parametro
    *  Parametro: codigo, cliente, nome, nuit, descricao 
    *  Return: none
    */
-   function preecher_clienteForm(codigo, cliente, nome, nuit, descricao) {
-    
+  function preecher_clienteForm(codigo, cliente, nome, nuit, descricao) {
+
     $('#clienteTxtCodigo').val(codigo);
     $('#clienteTxtCliente').val(cliente);
-      $('#clienteTxtNome').val(nome);
-       $('#clienteTxtNuit').val(nuit);
-     $('#clienteTxtDescricao').val(descricao);
+    $('#clienteTxtNome').val(nome);
+    $('#clienteTxtNuit').val(nuit);
+    $('#clienteTxtDescricao').val(descricao);
+  }
+
+
+
+  /***
+   *   Preencher os campos do formulario cliente filial com 
+   *      valores passado por parametro
+   *  Parametro: codigo, cliente, nome, nuit, descricao 
+   *  Return: none
+   */
+  function preecher_clienteFilialForm(nome, cidade, localidade, rua_av, telefone, email, ip) {
+
+    $('#clienteFilialTxtNome').val(nome);
+    $('#clienteFilialTxtCidade').val(cidade);
+    $('#clienteFilialTxtLocalidade').val(localidade);
+    $('#clienteFilialTxtLocalidadeAvRua').val(rua_av);
+    $('#clienteFilialTxtTelefone').val(telefone);
+    $('#clienteFilialTxtEmail').val(email);
+    $('#clienteFilialTxtIp').val(ip);
+  }
+
+
+
+  function adicionar_linha_tabela_filial(id, nome, ip, email, telefone) {
+    $linha = $('<tr/>');
+
+    $btnContainer = $('<div/>');
+    $btnContainer.addClass('buttons');
+    $btnEditar = $('<a/>');
+    $btnEditar.attr('data-id', id);
+
+    $btnEditar.addClass('button is-small filial-edit');
+    $btnEditar.text('editar');
+
+    $btnRemover = $('<a/>');
+    $btnRemover.attr('href', '#');
+    $btnRemover.addClass('button is-small is-danger filial-remover');
+    $btnRemover.text('Remover')
+    $btnRemover.attr('data-id', id);
+
+    $btnContainer.append($btnEditar);
+    $btnContainer.append($btnRemover);
+
+    $nome = $('<td/>').html(nome);
+    $ip = $('<td/>').html(ip);
+    $email = $('<td/>').html(email);
+    $telefone = $('<td/>').html(telefone);
+
+    $acao = $('<td/>')
+
+    $linha.append($nome);
+    $linha.append($ip);
+    $linha.append($email);
+    $linha.append($telefone);
+    $linha.append($btnContainer);
+
+    $('#clienteFilialTabelaBody').append($linha);
+  }
+
+  // function get_filial() {
+  //   $.get('http://127.0.0.1:4000/empresas/', function (data, status) {
+  //   if (data.erro !== null) {
+  //     alert('ocorreu um erro ' + data.erro)
+  //   } else {
+  //     data.resultado.forEach(cliente => {
+  //       adicionar_linha_tabela(cliente._id, cliente.empresa, cliente.nome, cliente.descricao, cliente.nuit);
+
+  //     });;
+
+  //   }
+  // });
+  // }
+
+
+
+  function get_filial_para_tabela(id) {
+    if (lista_filial && lista_filial.length <= 0) {
+      $.get('http://127.0.0.1:4000/empresas/' + id, function (data, status) {
+        if (data.erro !== null) {
+          alert('ocorreu um erro ' + data.erro)
+        } else {
+          limpar_tabela_cliente_filial();
+          lista_filial = data.resultado.filial;
+          data.resultado.filial.forEach(filial => {
+            adicionar_linha_tabela_filial(filial._id, filial.nome, filial.ip, filial.email, filial.telefone);
+
+          });
+
+
+          // editar filial selecionado na linha da tabela
+          $('.filial-edit').on('click', function (event) {
+            event.preventDefault();
+
+            var id = $(this).data().id;
+            lista_filial.forEach(filial => {
+              if (filial._id == id) {
+                $("#clienteFilialForm").show();
+                limpar_clienteFilialForm();
+                preecher_clienteFilialForm(filial.nome, filial.cidade, filial.localidade,
+                  filial.rua_av, filial.telefone, filial.email, filial.ip);
+              }
+            });
+
+
+          });
+
+          // remover filial selecionado na linha da tabela
+          $('.filial-remover').on('click', function (event) {
+            event.preventDefault();
+            var id = $(this).data().id;
+            cliente = $('#clienteTxtCodigo').val();
+            limpar_tabela_cliente_filial();
+            $.get("/filial/delete/" + id, function (data, status) {
+              get_filial_para_tabela(cliente);
+
+            });
+
+          });
+
+        }
+      });
+
+    } else {
+      limpar_tabela_cliente_filial();
+      lista_filial.forEach(filial => {
+        adicionar_linha_tabela_filial(filial._id, filial.nome, filial.ip, filial.email, filial.telefone);
+
+      });
+    }
+  }
+
+
+  function limpar_tabela_cliente_filial() {
+    $('#clienteFilialTabelaBody').html('');
+    lista_filial = [];
   }
   /* ./metodos */
-
-
-
 </script>
 
 <%- include('../../template/rodape'); -%>

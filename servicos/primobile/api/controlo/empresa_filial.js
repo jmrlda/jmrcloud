@@ -9,13 +9,23 @@ module.exports = {
       var id = empresa.id;
       const {
         nome,
-        ip
+        ip,
+        cidade,
+        localidade,
+        rua_av,
+        telefone,
+        email
       } = req.body;
 
       const filial = await Filial.create({
         nome,
         ip,
-        empresa: id
+        empresa: id,
+        cidade,
+        localidade,
+        rua_av,
+        telefone,
+        email
       });
 
       await filial.save();
@@ -73,4 +83,37 @@ module.exports = {
     }
 
   },
+
+
+  // remover documento
+  delete: async (req, res) => {
+    const { id } = req.params;
+    console.log('delete id  ' + id);
+
+    try {
+      const filial = await Filial.deleteOne({'_id' : id}, function( err ) {
+        if ( err ) {
+          return res.send({
+            erro: err,
+            resultado: null
+          });
+    
+        }
+
+      });
+      return res.send({
+        erro: null,
+        resultado: 'sucesso'
+      });
+
+    } catch (error) {
+      return res.send({
+        erro: error,
+        resultado: null
+      });
+    }
+  },
+
+
+
 }
