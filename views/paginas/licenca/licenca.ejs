@@ -1,0 +1,199 @@
+<%- include('../../template/cabecalho'); -%>
+
+
+<!-- coluna conteudo -->
+<div class="column">
+  <h2 class="title">Licenca</h2>
+
+  <!-- navegacao cliente -->
+  <nav class="level">
+    <div class="level-left">
+      <div class="level-item">
+        <p class="subtitle is-5">
+          <strong>2</strong> Licencas
+        </p>
+      </div>
+
+      <p class="level-item">
+        <a href="/licenca/novo" class="button is-success">nova</a>
+      </p>
+
+      <div class="level-item is-hidden-tablet-only">
+        <div class="field has-addons">
+          <p class="control">
+            <input type="text" name="" id="" class="input" placeholder="Por: cliente ou sistema ou filial ...">
+          </p>
+
+          <p class="control">
+            <button class="button">Procurar</button>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- level-right -->
+    <div class="level-right">
+      <level class="item">
+        Ordenar por
+      </level>
+
+      <div class="level-item">
+        <div class="select">
+          <select name="" id="">
+            <option value="">Cliente</option>
+            <option value="">Filial</option>
+            <option value="">Sistema</option>
+
+
+          </select>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- ./navegacao licenca -->
+
+  <!-- tabela cliente -->
+  <table class="table is-hoverable is-fullwidth" id="licencaTabela">
+    <thead>
+      <tr>
+        <!-- <th class="is-narrow">
+          <input type="checkbox">
+        </th> -->
+        <th>Codigo</th>
+        <th>Cliente</th>
+        <th>Filial</th>
+        <th>Sistema</th>
+        <th>Duracao</th>
+        <th>Data Criacao</th>
+        <th>Data activacao</th>
+        <th>Data final</th>
+        <th>Estado</th>
+        <th>accao</th>
+      </tr>
+    </thead>
+    <tfoot id="licencaFilialTabelaFoot">
+      <tr>
+        <th> </th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th> </th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>
+          <div class="buttons">
+            <a href="/licenca/novo" class="button is-small" id="licencaBtnCriarFilial">Criar licenca</a>
+          </div>
+        </th>
+      </tr>
+    </tfoot>
+    <tbody id="licencaTabelaBody">
+
+    </tbody>
+
+  </table>
+  <!-- ./tabela licenca -->
+
+
+
+
+  <script>
+    $(document).ready(function () {
+
+      /* eventos */
+      get_licenca_para_tabela();
+
+
+
+         
+    //   /* ./eventos */
+
+
+      /* metodos */
+      function adicionar_linha_tabela(codigo, cliente, filial, sistema, estado, duracao, criacao, activacao, final) {
+        $linha = $('<tr/>');
+
+        $btnContainer = $('<div/>');
+        $btnContainer.addClass('buttons');
+        $btnEditar = $('<a/>');
+        $btnEditar.attr('href','/licenca/'+ codigo);
+        
+        $btnEditar.addClass('button is-small');
+        $btnEditar.text('editar');
+
+        $btnRemover = $('<a/>');
+        $btnRemover.attr('href','#');
+        $btnRemover.addClass('button is-small is-danger licenca-remover');
+        $btnRemover.text('Remover')
+        $btnRemover.attr('data-id', codigo);
+
+        $btnContainer.append($btnEditar);
+        $btnContainer.append($btnRemover);
+
+        $codigo = $('<td/>').html(codigo);
+        $cliente = $('<td/>').html(cliente);
+        $filial = $('<td/>').html(filial);
+        $sistema = $('<td/>').html(sistema);
+        $criacao = $('<td/>').html(criacao);
+        $activacao = $('<td/>').html(activacao);
+        $final = $('<td/>').html(final);
+        $estado = $('<td/>').html(estado);
+        $duracao = $('<td/>').html(duracao);
+
+        $acao = $('<td/>').append($btnContainer);
+
+        $linha.append($codigo);
+        $linha.append($cliente);
+        $linha.append($filial);
+        $linha.append($sistema);
+        $linha.append($duracao);
+        $linha.append($criacao);
+        $linha.append($activacao);
+        $linha.append($final);
+        $linha.append($estado);
+
+        $linha.append($acao);
+        $('#licencaTabelaBody').append($linha);
+      }
+
+      function limpar_tabela_licenca() {
+        $('#licencaTabelaBody').html('');
+      }
+
+
+
+      function get_licenca_para_tabela() {
+        $.get('http://127.0.0.1:4000/servicos/licenca/', function (data, status) {
+        if (data.erro !== null) {
+          alert('ocorreu um erro ' + data.erro)
+        } else {
+          data.resultado.forEach(licenca => {
+            adicionar_linha_tabela(licenca._id, licenca.cliente.empresa, licenca.filial.nome, 
+            licenca.sistema, licenca.estado,  licenca.duracao, licenca.data_criacao, licenca.data_activacao, licenca.data_final);
+            
+          });;
+                 // remover filial selecionado na linha da tabela
+                 $('.licenca-remover').on('click', function (event) {
+            event.preventDefault();
+            var id = $(this).data().id;
+
+            limpar_tabela_licenca();
+            $.get("/servicos/licenca/delete/" + id, function (data, status) {
+              get_licenca_para_tabela();
+            });
+
+          });
+        }
+      });
+      }
+    //   /* ./metodos */
+
+    
+    });
+  </script>
+
+
+
+  <%- include('../../template/rodape'); -%>

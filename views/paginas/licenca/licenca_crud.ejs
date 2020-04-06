@@ -1,0 +1,343 @@
+<%- include('../../template/cabecalho'); -%>
+
+
+<!-- hieraquia das paginas -->
+<nav class="breadcrumb">
+  <ul>
+    <li>
+      <a href="/licenca">Licencas</a>
+    </li>
+    <li class="is-active">
+      <% if (licenca) { %>
+      <a href="/licenca/novo">Editar</a>
+      <% } else { %>
+      <a href="/licenca/novo">Nova</a>
+      <% } %>
+
+    </li>
+  </ul>
+</nav>
+<!-- ./hieraquia das paginas -->
+
+<div class="columns">
+  <div class="column ">
+
+    <!-- formulario licenca pesquisa-->
+    <form id="licencaForm">
+
+      <div class="columns is-desktop">
+        <!-- licenca  -->
+        <div class="column is-4">
+          <label for="" class="label">Cliente</label>
+          <div class="control has-icons-left">
+            <!-- <input type="text" class="input is-small" <% if (licenca) { %> value="<%= licenca.cliente %>" <% } %>
+              name="licencaTxtCliente" id="licencaTxtCliente" required /> -->
+
+              <div class="select is-small">
+                <select  name="licencaSelectCliente" id="licencaSelectCliente" required disabled>
+                  <option>Selecionar Cliente</option>
+                  <% if (licenca) { %>
+                    <option   value="<%= licenca.cliente._id %>" selected><%= licenca.cliente.empresa %></option>                    
+                    <% } %>
+                </select>
+              </div>
+
+            <span class="icon is-small is-left">
+              <i class="fa fa-user-o"></i>
+            </span>
+          </div>
+        </div>
+        <!-- ./licenca -->
+        <!-- licenca  -->
+        <div class="column is-3 ">
+          <label for="" class="label">Codigo</label>
+          <div class="control has-icons-left">
+            <input type="text" class="input is-small" <% if (licenca) { %> value="<%= licenca._id %>" <% } %>
+              name="licencaTxtCodigo" id="licencaTxtCodigo" disabled required />
+            <span class="icon is-small is-left">
+              <i class="fa fa-user-o"></i>
+            </span>
+          </div>
+        </div>
+        <!-- ./licenca -->
+
+
+
+      </div>
+
+      <!-- campo dos dados da empresa -->
+      <div class="columns is-desktop">
+
+
+        <!-- filial -->
+        <div class="column">
+          <label for="" class="label">Filial</label>
+          <div class="control has-icons-left">
+<!-- 
+            <input type="text" class="input is-small" placeholder="" <% if (licenca) { %>
+              value="<%= licenca.filial %>" <% } %> name="licencaTxtFilial" id="licencaTxtFilial" required /> -->
+              <div class="select is-small">
+                <select <% if (licenca) { %>
+                  value="<%= licenca.filial %>" <% } %> name="licencaSelectFilial" id="licencaSelectFilial"  disabled required>
+                  <option>Selecionar Filial</option>
+                  <% if (licenca) { %>
+                    <option   value="<%= licenca.filial._id %>" selected><%= licenca.filial.nome %></option>                    
+                    <% } %>                </select>
+              </div>
+
+            <span class="icon is-small is-left">
+              <i class="fa fa-location-arrow"></i>
+            </span>
+          </div>
+        </div>
+        <!-- ./filial -->
+
+        <!-- Sistema -->
+        <div class="column">
+          <label for="" class="label">Sistema</label>
+          <div class="control has-icons-left">
+            <div class="select is-small">
+              <select  name="licencaSelectSistema" id="licencaSelectSistema"   <% if (licenca) { %> disabled  <% } %> required>
+              
+                <option>Selecionar Sistema</option>
+                <option>Conferencia de Caixa</option>
+                <option>Primobile</option>
+                <option>Webshop</option>
+                <% if (licenca) { %>
+                  <option   value="<%= licenca.sistema %>" selected><%= licenca.sistema %></option>                    
+                  <% } %>
+                <!-- <option></option> -->
+
+              </select>
+            </div>
+            <span class="icon is-small is-left">
+              <i class="fa fa-user-circle-o"></i>
+            </span>
+          </div>
+        </div>
+        <!-- ./Sistema -->
+        <!-- Duracao -->
+        <div class="column">
+          <label for="" class="label">Duracao licenca</label>
+          <div class="control has-icons-left">
+            <div class="select is-small">
+              <select  <% if (licenca) { %> disabled  <% } %> name="licencaSelectDuracao" id="licencaSelectDuracao" required>
+                <option>Selecionar Duracao</option>
+                <option>1 Mes</option>
+                <option>3 Meses</option>
+                <option>6 Meses</option>
+                <option>1 Ano</option>
+                <% if (licenca) { %>
+                  <option   value="<%= licenca.duracao %>" selected><%= licenca.duracao %></option>                    
+                  <% } %>
+              </select>
+            </div>
+            <span class="icon is-small is-left">
+              <i class="fa fa-time"></i>
+            </span>
+          </div>
+        </div>
+        <!-- ./Duracao -->
+      <!-- Estado -->
+      <div class="column">
+        <label for="" class="label">Estado</label>
+        <div class="control has-icons-left">
+          <div class="select is-small">
+            <select  <% if (licenca) { %>   <% } %> name="licencaSelectEstado" id="licencaSelectEstado" required>
+              <option>Selecionar Estado</option>
+              <option value="pendente">Pendente</option>
+              <option value="Activado">Activado</option>
+              <option value="Cancelado">Cancelado</option>
+              <option value="Expirado">Expirado</option>
+              <option value="Removido">Removido</option>
+              <% if (licenca) { %>
+                <option   value="<%= licenca.estado %>" selected><%= licenca.estado %></option>                    
+                <% } %>
+            </select>
+          </div>
+          <span class="icon is-small is-left">
+            <i class="fa fa-time"></i>
+          </span>
+        </div>
+      </div>
+      <!-- ./Duracao -->
+      </div>
+
+
+      <div class="columns is-desktop">
+                <!-- Data criacao -->
+                <div class="column">
+                  <label for="" class="label">Data criacao</label>
+                  <div class="control has-icons-left">
+                    <input type="date" class="input is-small" placeholder="" name="licencaTxtDataCriacao"
+                      
+                      id="licencaTxtDataCriacao" disabled  required />
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-date"></i>
+                    </span>
+                  </div>
+                </div>
+                        <!-- Data criacao -->
+        
+                <!-- Data activacao -->
+                <div class="column">
+                  <label for="" class="label">Data activacao</label>
+                  <div class="control has-icons-left">
+                    <input type="date" class="input is-small" placeholder="" name="licencaTxtDataActivacao"
+                      <% if (licenca && licenca.data_activacao) { %> value="<%= licenca.data_activacao %>"  <% } %> id="licencaTxtDataActivacao" disabled  required />
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-date"></i>
+                    </span>
+                  </div>
+                </div>
+                        <!-- Data activacao -->
+        
+                           <!-- Data activacao -->
+                <div class="column">
+                  <label for="" class="label">Data Final</label>
+                  <div class="control has-icons-left">
+                    <input type="date" class="input is-small" placeholder="" name="licencaTxtDataFinal"
+                      <% if (licenca && licenca.data_final) { %> value="<%= licenca.data_final %>"  <% } %> id="licencaTxtDataFinal" disabled  required />
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-date"></i>
+                    </span>
+                  </div>
+                </div>
+                        <!-- Data activacao -->
+      </div>
+
+      <!-- botao submit e cancelar -->
+      <nav class="level">
+        <div class="level-left">
+        </div>
+        <div class="level-right">
+          <div class="level-item">
+            <div class="field ">
+              <div class="buttons">
+                <button class="button  is-success is-small" id="licencaBtnCriar"> <% if (btnCreateLabel) { %>
+                  <%= btnCreateLabel %> <% } %></button>
+                <button class="button  is-light is-small" id="licencaBtnCancelar">Cancelar</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </nav>
+      <!-- botao submit e cancelar -->
+
+      <!-- ./campo dos atributos -->
+    </form>
+
+ 
+ 
+  </div>
+
+
+
+  <div class="column is-2">
+    <h3>informacao adicionais das licencas</h3>
+  </div>
+</div>
+
+
+
+<script>
+
+$(document).ready(function() {
+
+  // formulario cliente
+  
+    $("#licencaBtnCriar").on('click', async function (event) {
+      var id, cliente, filial, sistema, duracao, estado, activacao, final;
+
+      event.preventDefault();
+
+      id = $('#licencaTxtCodigo').val();
+      cliente = $('#licencaSelectCliente').val();
+      filial = $('#licencaSelectFilial').val();
+      sistema = $('#licencaSelectSistema').val();
+      duracao = $('#licencaSelectDuracao').val();
+      estado = $('#licencaSelectEstado').val();
+      // criacao = $('#licencaTxtDataCriacao').val();
+      activacao = $('#licencaTxtDataActivacao').val();
+      final = $('#licencaTxtDataFinal').val();
+
+
+
+      if ( id.length > 1) {
+        url = 'http://127.0.0.1:4000/servicos/licenca/' + id;
+      activacao = ""
+      final = ""
+
+      } else {
+        url = 'http://127.0.0.1:4000/servicos/licenca'; 
+      }
+      // enviar dados do formulario
+
+     await $.post(url, {
+          'cliente': cliente,
+          'filial': filial,
+          'sistema': sistema,
+          'duracao': duracao,
+          'estado': estado,
+          'data_activacao': activacao,
+          'data_final': final
+
+
+        },
+        function (data, status) {
+          if (data.erro !== null) {
+            console.log('erro ao alterar licenca')
+            console.log(data);
+          } else {
+
+            console.log('alterado com sucesso')
+            licenca = data.resultado;
+            limpar_licencaForm();
+            preecher_licencaForm(licenca._id, licenca.cliente.empresa, licenca.filial.nome,
+            licenca.sistema, licenca.duracao, licenca.estado, licenca.data_criacao, licenca.data_activacao,
+            licenca.data_final);
+
+          }
+        });
+
+        
+      return false;
+
+    });
+
+    // ./formulario licencas
+
+    function limpar_tabela_licenca() {
+    $('#licencaTabelaBody').html('');
+  }
+  function preecher_licencaForm(id, cliente, filial, sistema, duracao, estado, criacao, activacao, final) {
+
+     $('#licencaTxtCodigo').val(id);
+       $('#licencaSelectCliente').val(cliente);
+       $('#licencaSelectFilial').val(filial);
+        $('#licencaSelectSistema').val(sistema);
+        $('#licencaSelectDuracao').val(duracao);
+       $('#licencaSelectEstado').val(estado);
+       $('#licencaTxtDataCriacao').val(criacao);
+       $('#licencaTxtDataActivacao').val(activacao);
+      $('#licencaTxtDataFinal').val(final);
+}
+
+function limpar_licencaForm() {
+
+$('#licencaTxtCodigo').val("");
+  $('#licencaSelectCliente').val("");
+  $('#licencaSelectFilial').val("");
+   $('#licencaSelectSistema').val("");
+   $('#licencaSelectDuracao').val("");
+  $('#licencaSelectEstado').val("");
+  $('#licencaTxtDataCriacao').val("");
+  $('#licencaTxtDataActivacao').val("");
+ $('#licencaTxtDataFinal').val("");
+}
+});
+
+</script>
+
+<%- include('../../template/rodape'); -%>

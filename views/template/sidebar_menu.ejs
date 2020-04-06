@@ -1,5 +1,5 @@
     <!-- Sidebar Menu  -->
-    <div class="column is-4-tablet is-3-desktop is-2-widescreen">
+    <div class="column is-4-tablet is-3-desktop is-2-widescreen has-background-light	">
         <nav class="menu">
           <p class="menu-label">
             Menu
@@ -65,6 +65,26 @@
                 Clientes
               </a>
             </li>
+            <!-- ./clientes -->
+
+          <!-- licenca -->
+
+
+          <li>
+            <% if (isActive == "licenca") { %>
+              <a   class="is-active" href="/licenca">
+              <% } else { %>  
+                <a  href="/licenca">
+                <% } %>              
+              <span class="icon">
+                <i class="fa fa-user"></i>
+              </span>              
+              Licenca
+            </a>
+          </li>
+          <!-- ./licenca -->
+
+
           </ul>
         </nav>
       </div>

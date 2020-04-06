@@ -18,6 +18,7 @@ const index_rota     = require('./rota/index');
 // rota de servicos api
 const empresa_rota   = require('./servicos/primobile/api/rota/empresa');
 const usuario_rota   = require('./servicos/primobile/api/rota/usuario');
+const licenca_rota   = require('./servicos/licenca/api/rota/licenca');
 
 /* ./importar rotas */
 
@@ -30,6 +31,7 @@ server.use(methodOverride('_method')); // usar metodos como PUT, DELETE
 server.use(index_rota);
 server.use(empresa_rota);
 server.use(usuario_rota);
+server.use(licenca_rota);
 
 const port = 4000;
 

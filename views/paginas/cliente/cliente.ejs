@@ -147,14 +147,14 @@
         $nome = $('<td/>').html(nome);
         $descricao = $('<td/>').html(descricao);
         $nuit = $('<td/>').html(nuit);
-        $acao = $('<td/>')
+        $acao = $('<td/>').append($btnContainer);
 
         $linha.append($codigo);
         $linha.append($cliente);
         $linha.append($nome);
         $linha.append($descricao);
         $linha.append($nuit);
-        $linha.append($btnContainer);
+        $linha.append($acao);
 
         $('#clienteTabelaBody').append($linha);
       }
