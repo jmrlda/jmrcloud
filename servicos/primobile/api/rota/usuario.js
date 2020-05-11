@@ -4,7 +4,7 @@ const usuario        = require('../controlo/usuario')
 
 
 server.get('/usuarios/', usuario.find);
-server.get('/usuarios/:id', usuario.find); // :id = filial id
+server.get('/usuarios/:id', usuario.findById); // :id = filial id
 server.post('/usuarios/login', usuario.login);
 server.post('/usuarios/:id', usuario.create); // :id = filial id
 server.get('/usuarios/existe/:id', usuario.findByUsuario); // :id = filial id

@@ -3,7 +3,7 @@ const Filial = require('../modelo/empresa_filial');
 
 
 module.exports = {
-    create: async ( req, res ) => {
+        create: async ( req, res ) => {
         const { nome, senha, perfil, documento, usuario } = req.body;
         var id;
         var empresa_filial = id = req.params.id;
@@ -20,7 +20,8 @@ module.exports = {
    
             _usuario.setSenha(senha);
             _usuario.save();
-            const filialById = await Filial.findById(id);
+            const filialById = await (await Filial.findById(id)).populate('empresa');      
+
             filialById.usuarios.push(_usuario);
             await filialById.save();
     

@@ -16,6 +16,7 @@ server.get('/empresas/delete/:id', empresa.delete);
 
 // .Filiais
 server.get('/filial/', empresa_filial.find);
+server.get('/filial/:id', empresa_filial.findById);
 server.post('/filial/:id', empresa_filial.create);
 server.get('/filial/delete/:id', empresa_filial.delete);
 

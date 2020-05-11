@@ -84,6 +84,27 @@ module.exports = {
 
   },
 
+  findById: async (req, res) => {
+
+    try {
+      const {
+        id
+      } = req.params;
+      const empresaByFilial = await (await Filial.findById(id)).populate('empresa');      
+      return res.send({
+        erro: null,
+        resultado: empresaByFilial
+      });
+    } catch (error) {
+      return res.send({
+        erro: error,
+        resultado: null
+      });
+    }
+
+  },
+
+
 
   // remover documento
   delete: async (req, res) => {
