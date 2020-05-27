@@ -29,7 +29,8 @@ module.exports = {
 
                 
         } catch (error) {
-            console.log(error);
+            console.error("[create] Erro: ");
+            console.error(error);
             return res.status(400).send({erro: error, resultado: null});
         }
         //  await    usuario.save();
@@ -116,6 +117,44 @@ module.exports = {
         }
     },
 
+    updateSenha: async (req, res) => {
+        
+        try {
+            var  {nome, senha_actual, senha_nova, senha_confirmar} = req.body;
+
+
+            if (nome == null || senha_actual == null  || senha_confirmar == null || senha_nova == null) {
+                return res.send({erro: {mensagem: "Campo nome, senha_actual, senha_nova, senha_confirmar não deve estar vazia!"}, resultado: null});                        
+
+            }
+             Usuario.findOne({nome: nome}, async function( err, user ) {
+                 if (user === null) {
+                     return res.status(400).send({
+                         erro: {mensagem: "usuario nao encontrado"},
+                         resultado: null
+                     });
+                 } else {
+                     if ( user.validarSenha(senha_actual)) {
+
+                        user.setSenha(senha_confirmar);
+                        user.save();
+                        return res.status(200).send({
+                            erro: null,
+                             resultado: "sucesso"
+                        });
+                     } else {
+                         return res.status(400).send({
+                             erro: {mensagem: "senha invalida"},
+                              resultado: null
+                         });
+                     }
+                 }
+             });
+                 
+         } catch (error) {
+             return res.status(400).send({erro: error, resultado: null});                        
+         }
+    }
 
     // registrarCliente: () => {
 
